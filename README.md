@@ -20,18 +20,18 @@ Requirements:
 * Can use outside k8s for server? (Nice to have)
 
 ## Connect Talk
-Review of options
-We chose X for arbitrary reason Y
-What we did? 
-The issues up we found
-What we're going to do?
-Git repo dedicated for this
+- Review of options
+- We chose X for arbitrary reason Y
+- What we did? 
+- The issues up we found
+- What we're going to do?
+- Git repo dedicated for this
 
-Set up slides in Google Docs:
-2 minutes intro of us - Both
-3 minutes intro to chaos testing - Roo
-5 minutes of what we need/what we looked for - Pat
-5 minutes discussing pros/cons of each, and selection of what we took further - Pat
-5 minutes of what we did - Roo
-5 minutes of future work to do - Roo
-5 minutes Q&A - Both
+### Set up slides in Google Docs:
+* 2 minutes intro of us - Both
+* 3 minutes intro to chaos testing - Roo
+* 5 minutes of what we need/what we looked for - Pat
+* 5 minutes discussing pros/cons of each, and selection of what we took further - Pat
+* 5 minutes of what we did - Roo
+* 5 minutes of future work to do - Roo
+* 5 minutes Q&A - Both
