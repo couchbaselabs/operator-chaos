@@ -21,14 +21,14 @@ CLUSTER_NAME=${CLUSTER_NAME:-couchbase-chaos}
 # The server container image to use
 SERVER_IMAGE=${SERVER_IMAGE:-couchbase/server:7.0.0}
 # The number of KIND nodes to create
-SERVER_COUNT=${SERVER_COUNT:-6}
+NODE_COUNT=${NODE_COUNT:-6}
 # The namespace to use
 NAMESPACE=${NAMESPACE:-default}
 
 # Delete the old cluster if it exists
 kind delete cluster --name="${CLUSTER_NAME}" || true
 
-# Set up KIND cluster with worker nodes based on SERVER_COUNT
+# Set up KIND cluster with worker nodes based on NODE_COUNT
 CLUSTER_CONFIG=$(mktemp)
 cat << EOF > "${CLUSTER_CONFIG}"
 kind: Cluster
@@ -36,7 +36,7 @@ apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
 - role: control-plane
 EOF
-for _ in $(seq "$SERVER_COUNT"); do
+for _ in $(seq "$NODE_COUNT"); do
     cat << EOF >> "${CLUSTER_CONFIG}"
 - role: worker
 EOF

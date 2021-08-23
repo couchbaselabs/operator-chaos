@@ -18,7 +18,4 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 /bin/bash "${SCRIPT_DIR}/tools/create-cluster.sh"
 /bin/bash "${SCRIPT_DIR}/tools/deploy-litmus.sh"
-
-for NAMESPACE in test1 test2 test3; do
-    SERVER_COUNT=2 NAMESPACE=${NAMESPACE} /bin/bash "${SCRIPT_DIR}/tools/deploy-couchbase.sh"
-done
+/bin/bash "${SCRIPT_DIR}/tools/deploy-couchbase.sh"
