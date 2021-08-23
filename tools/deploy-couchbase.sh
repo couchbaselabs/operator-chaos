@@ -13,9 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Simple script to provision a Kubernetes cluster using KIND: https://kind.sigs.k8s.io/
-# It then spins up a Couchbase Server cluster on it using Helm: https://helm.sh/
-# To use, need Docker (or a container runtime) installed plus kubectl, KIND & Helm.
+# Simple script to spin up a Couchbase Server cluster using Helm: https://helm.sh/
 set -eu
 
 # The server container image to use
@@ -25,6 +23,7 @@ SERVER_COUNT=${SERVER_COUNT:-3}
 # The namespace to use
 NAMESPACE=${NAMESPACE:-default}
 
+echo "Deploying Couchbase into: $NAMESPACE"
 # Add Couchbase via helm chart (depending on whether you include the extra slash or not)
 helm repo add couchbase https://couchbase-partners.github.io/helm-charts/ || helm repo add couchbase https://couchbase-partners.github.io/helm-charts
 # Ensure we update the repo (may have added it years ago!)
@@ -35,4 +34,4 @@ helm upgrade --install chaos couchbase/couchbase-operator \
     --set cluster.image="${SERVER_IMAGE}",cluster.servers.default.size="${SERVER_COUNT}" \
     --namespace "${NAMESPACE}" --create-namespace --wait
 
-echo "Completed Couchbase cluster creation and configuration"
+echo "Completed Couchbase deployment"

@@ -13,16 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Simple script to deploy Litmus using helm.
 set -eu
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# The namespace to use
-NAMESPACE=${NAMESPACE:-litmus}
+/bin/bash "${SCRIPT_DIR}/tools/create-cluster.sh"
+/bin/bash "${SCRIPT_DIR}/tools/deploy-litmus.sh"
 
-echo "Deploying Litmus into: $NAMESPACE"
-# Install Litmus operator using helm
-helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/ || helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm
-helm repo update
-helm install chaos litmuschaos/litmus --namespace="${NAMESPACE}" --create-namespace --wait
-
-echo "Completed Litmus deployment"
+for NAMESPACE in test1 test2 test3; do
+    NAMESPACE=${NAMESPACE} /bin/bash "${SCRIPT_DIR}/tools/deploy-couchbase.sh"
+done

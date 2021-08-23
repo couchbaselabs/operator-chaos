@@ -14,16 +14,14 @@
 # limitations under the License.
 
 # Simple script to provision a Kubernetes cluster using KIND: https://kind.sigs.k8s.io/
-# It then spins up a Couchbase Server cluster on it using Helm: https://helm.sh/
-# To use, need Docker (or a container runtime) installed plus kubectl, KIND & Helm.
 set -eu
 
 # In case you want a different name
 CLUSTER_NAME=${CLUSTER_NAME:-couchbase-chaos}
 # The server container image to use
 SERVER_IMAGE=${SERVER_IMAGE:-couchbase/server:7.0.0}
-# The number of server pods and KIND nodes to create
-SERVER_COUNT=${SERVER_COUNT:-3}
+# The number of KIND nodes to create
+SERVER_COUNT=${SERVER_COUNT:-6}
 # The namespace to use
 NAMESPACE=${NAMESPACE:-default}
 
