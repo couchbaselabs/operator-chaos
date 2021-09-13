@@ -1,37 +1,16 @@
-# Couchbase Operator Chaos Testing
+# Chaos Testing With Couchbase Autonomous Operator
 
+This repository is to support the Couchbase CONNECT 2021 talk: "How We Don’t Break Your Toys: Chaos Testing With Couchbase Autonomous Operator".
 
-## Considerations & Requirements
-Longevity testing
-* Operator robustness - crash up operator pods
-* Operator resilience - crash up server pods
-* Server work during this - self certification?
-* Operator work? Upgrade, scaling, etc.? (Nice to have)
-* How to monitor it/verify? CMOS?
+It includes all the supporting scripts, examples and the like to use with the presentation.
 
-Requirements:
-* Pod killing
-* Network errors
-* Resource throttling
-* Simple integration with KIND (plus OCP+GKE - nice to have)
-* CNCF
-* Declarative and automated
-* Extensible to custom actions? (Nice to have)
-* Can use outside k8s for server? (Nice to have)
+## Abstract
 
-## Connect Talk
-- Review of options
-- We chose X for arbitrary reason Y
-- What we did?
-- The issues up we found
-- What we're going to do?
-- Git repo dedicated for this
+Take a peek behind the scenes of qualification testing of every Couchbase Autonomous Operator release. See how we combine fully automated testing with chaos-generating tools like Chaos Mesh to test and improve the resilience of clusters managed by the operator, while also making use of the Couchbase observability stack to provide monitoring.
 
-### Set up slides in Google Docs:
-* 2 minutes intro of us - Both
-* 3 minutes intro to chaos testing - Roo
-* 5 minutes of what we need/what we looked for - Pat
-* 5 minutes discussing pros/cons of each, and selection of what we took further - Pat
-* 5 minutes of what we did - Roo
-* 5 minutes of future work to do - Roo
-* 5 minutes Q&A - Both
+Via the power of live demos, you’ll get a brief introduction to Chaos testing tools and how Couchbase uses them, plus how these tools can help others.
+
+# Usage
+
+A simple [run](./run.sh) script is provided that will spin up a full cluster and deploy both Couchbase Server as well as various chaos testing tools discussed in the presentation.
+Note that this runs on Kubernetes-in-docker or [KIND](https://kind.sigs.k8s.io/) so requires Docker plus a fairly chunky amount of resource to do it all locally.

@@ -17,8 +17,20 @@ set -eu
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Set this to chaosblade, chaosmesh or litmus depending on which one you want.
+# Set it to "all" to deploy them all in a single cluster.
 CHAOS_TOOL_TO_USE=${CHAOS_TOOL_TO_USE:-chaosmesh}
 
 /bin/bash "${SCRIPT_DIR}/tools/create-cluster.sh"
-/bin/bash "${SCRIPT_DIR}/tools/deploy-$CHAOS_TOOL_TO_USE.sh"
-/bin/bash "${SCRIPT_DIR}/tools/deploy-couchbase.sh"
+
+if [[ "${CHAOS_TOOL_TO_USE}" == "all" ]]; then
+    echo "Deploying all Chaos tools"
+    for i in "${SCRIPT_DIR}"/tools/deploy-*.sh; do
+        # Ignore invalid/non-files
+        [[ ! -f "$i" ]] && continue
+        /bin/bash "${i}"
+    done
+else
+    echo "Deploying single Chaos tool: $CHAOS_TOOL_TO_USE"
+    /bin/bash "${SCRIPT_DIR}/tools/deploy-$CHAOS_TOOL_TO_USE.sh"
+    /bin/bash "${SCRIPT_DIR}/tools/deploy-couchbase.sh"
+fi
