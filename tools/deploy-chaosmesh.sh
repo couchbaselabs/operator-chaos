@@ -13,12 +13,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Simple script to deploy ChaosMesh: https://chaos-mesh.org/docs/quick-start/
+# Assumes deployed Kubernetes cluster already
 set -eu
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# Set this to chaosblade, chaosmesh or litmus depending on which one you want.
-CHAOS_TOOL_TO_USE=${CHAOS_TOOL_TO_USE:-chaosmesh}
+# The namespace to use
+NAMESPACE=${NAMESPACE:-chaos-testing}
 
-/bin/bash "${SCRIPT_DIR}/tools/create-cluster.sh"
-/bin/bash "${SCRIPT_DIR}/tools/deploy-$CHAOS_TOOL_TO_USE.sh"
-/bin/bash "${SCRIPT_DIR}/tools/deploy-couchbase.sh"
+echo "Deploying ChaosMesh into: $NAMESPACE"
+
+# Remove any existing deployment
+kubectl delete ns "$NAMESPACE" || true
+curl -sSL https://mirrors.chaos-mesh.org/v2.0.1/install.sh | bash -s -- --local kind --namespace "$NAMESPACE"
+
+echo "Completed ChaosMesh deployment"
+
+# kubectl get pods --namespace "$NAMESPACE"
+# kubectl port-forward -n "$NAMESPACE"g svc/chaos-dashboard 2333:2333

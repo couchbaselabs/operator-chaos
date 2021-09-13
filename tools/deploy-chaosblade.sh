@@ -13,12 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Simple script to deploy ChaosBlade
 set -eu
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# Set this to chaosblade, chaosmesh or litmus depending on which one you want.
-CHAOS_TOOL_TO_USE=${CHAOS_TOOL_TO_USE:-chaosmesh}
+# The namespace to use
+NAMESPACE=${NAMESPACE:-chaosblade}
 
-/bin/bash "${SCRIPT_DIR}/tools/create-cluster.sh"
-/bin/bash "${SCRIPT_DIR}/tools/deploy-$CHAOS_TOOL_TO_USE.sh"
-/bin/bash "${SCRIPT_DIR}/tools/deploy-couchbase.sh"
+echo "Deploying ChaosBlade into: $NAMESPACE"
+
+# Have to get helm chart from repo:
+HELM_CHART=$(mktemp)
+curl https://github.com/chaosblade-io/chaosblade-operator/releases/download/v1.3.0/chaosblade-operator-1.3.0-v3.tgz --output "${HELM_CHART}"
+# Now install from the tarball
+helm install chaosblade-operator "${HELM_CHART}" --namespace "${NAMESPACE}"
+# Clean up the tarball
+rm -f "${HELM_CHART}"
+echo "Completed ChaosBlade deployment"
+
+# kubectl get pod -l part-of=chaosblade -n chaosblade

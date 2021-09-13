@@ -22,7 +22,7 @@ Requirements:
 ## Connect Talk
 - Review of options
 - We chose X for arbitrary reason Y
-- What we did? 
+- What we did?
 - The issues up we found
 - What we're going to do?
 - Git repo dedicated for this

@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Simple script to spin up a Couchbase Server cluster using Helm: https://helm.sh/
+# Simple script to spin up multiple Couchbase Server clusters using Helm: https://helm.sh/
 set -eu
 
 # The server container image to use
