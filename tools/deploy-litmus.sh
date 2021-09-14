@@ -24,5 +24,11 @@ echo "Deploying Litmus into: $NAMESPACE"
 helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm/ || helm repo add litmuschaos https://litmuschaos.github.io/litmus-helm
 helm repo update
 helm install chaos litmuschaos/litmus --namespace="${NAMESPACE}" --create-namespace --wait
-
 echo "Completed Litmus deployment"
+
+# https://docs.litmuschaos.io/docs/getting-started/installation#verify-your-installation
+echo "Default credentials for litmus on http://localhost:8080"
+echo "Username: admin"
+echo "Password: litmus"
+# For KIND we need to port forward
+kubectl port-forward deploy/chaos-litmus-frontend --namespace="${NAMESPACE}" 8080:8080

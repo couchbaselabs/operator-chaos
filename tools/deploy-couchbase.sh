@@ -17,9 +17,9 @@
 set -eu
 
 # The server container image to use
-SERVER_IMAGE=${SERVER_IMAGE:-couchbase/server:7.0.0}
+SERVER_IMAGE=${SERVER_IMAGE:-couchbase/server:7.0.1}
 # The number of server pods to create
-SERVER_COUNT=${SERVER_COUNT:-3}
+SERVER_COUNT=${SERVER_COUNT:-1}
 # The namespaces to use
 DAC_NAMESPACE=${DAC_NAMESPACE:-couchbase-dac}
 declare -a TEST_NAMESPACES=("couchbase-test1" "couchbase-test2" "couchbase-test3")

@@ -21,7 +21,7 @@ CLUSTER_NAME=${CLUSTER_NAME:-couchbase-chaos}
 # The server container image to use
 SERVER_IMAGE=${SERVER_IMAGE:-couchbase/server:7.0.1}
 # The number of KIND nodes to create
-NODE_COUNT=${NODE_COUNT:-6}
+NODE_COUNT=${NODE_COUNT:-4}
 # The namespace to use
 NAMESPACE=${NAMESPACE:-default}
 

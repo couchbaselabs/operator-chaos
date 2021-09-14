@@ -17,6 +17,7 @@
 # Assumes deployed Kubernetes cluster already
 set -eu
 
+CLUSTER_NAME=${CLUSTER_NAME:-couchbase-chaos}
 # The namespace to use
 NAMESPACE=${NAMESPACE:-chaos-testing}
 
@@ -24,9 +25,9 @@ echo "Deploying ChaosMesh into: $NAMESPACE"
 
 # Remove any existing deployment
 kubectl delete ns "$NAMESPACE" || true
-curl -sSL https://mirrors.chaos-mesh.org/v2.0.1/install.sh | bash -s -- --local kind --namespace "$NAMESPACE"
+curl -sSL https://mirrors.chaos-mesh.org/v2.0.1/install.sh | bash -s -- --local kind --name "${CLUSTER_NAME}" --namespace "$NAMESPACE"
 
 echo "Completed ChaosMesh deployment"
 
-# kubectl get pods --namespace "$NAMESPACE"
-# kubectl port-forward -n "$NAMESPACE"g svc/chaos-dashboard 2333:2333
+# https://chaos-mesh.org/docs/quick-start/
+kubectl port-forward -n "$NAMESPACE" svc/chaos-dashboard 2333:2333
